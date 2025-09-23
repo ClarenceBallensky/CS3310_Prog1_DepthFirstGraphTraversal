@@ -1,3 +1,12 @@
+/**
+ * Clarence Ballensky
+ * CS 3310.01, Fall 2025
+ * Programming Assignment 1
+ * Prog1.java includes the main method and helper functions for depth-first-search graph traversal
+ */
+
+
+
 import java.io.*;
 import java.util.Stack;
 import java.util.Scanner;
@@ -40,6 +49,13 @@ public class Prog1
 
     }
 
+    /**
+     * Method: parseLine
+     * Purpose: For each line in the user-provided file, remove extra characters like spaces, parentheses, and commas to store the number of vertices
+     *          in numVertices and each edge pair in edges
+     * @param line
+     * @return GraphInput containing numVertices and edges
+     */
     public static GraphInput parseLine(String line)
     {
         //remove whitespace at the start or end of the string, split wherever there are >= 1 whitespace chars
@@ -61,6 +77,13 @@ public class Prog1
         return new GraphInput(numVertices, edges);
     }
 
+    /**
+     * Method: createAdjList
+     * Purpose: create an adjacency list for every vertex in edges by looping through edges
+     * @param numVertices
+     * @param edges
+     * @return adjList
+     */
     public static List<List<Integer>> createAdjList(int numVertices, List<int[]> edges)
     {
         List<List<Integer>> adjList = new ArrayList<>();
