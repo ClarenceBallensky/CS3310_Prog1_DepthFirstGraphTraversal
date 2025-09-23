@@ -29,14 +29,29 @@ public class Prog1
         //opens up the file specified in the command line
         File file = new File(args[0]);
 
+        int graphCount = 0; //number of graphs in the input file (number of lines in the input file)
+
         //read the contents of the file
         try (Scanner sc = new Scanner(file)){
             while (sc.hasNextLine())
             {
                 String line = sc.nextLine();
+                graphCount++; //for each additional line in the file, increment graphCount by 1
 
                 GraphInput gi = parseLine(line);
                 createAdjList(gi.numVertices, gi.edges);
+
+                //boolean array to keep track of whether or not a vertex has been visited
+                boolean[] visited = new boolean[gi.numVertices];
+                //initialize all values of visited to false --> no vertices have been visited
+                for (int i = 0; i < gi.numVertices; i++)
+                {
+                    visited[i] = false;
+                }
+
+                System.out.println("Graph" + graphCount + ":");
+
+                
             }
 
             sc.close();
