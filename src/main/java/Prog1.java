@@ -89,7 +89,7 @@ public class Prog1
      * Method: parseLine
      * Purpose: For each line in the user-provided file, remove extra characters like spaces, parentheses, and commas to store the number of vertices
      *          in numVertices and each edge pair in edges
-     * @param line
+     * @param line the current line of text from the input file
      * @return GraphInput containing numVertices and edges
      */
     public static GraphInput parseLine(String line)
@@ -116,9 +116,9 @@ public class Prog1
     /**
      * Method: createAdjList
      * Purpose: create an adjacency list for every vertex in edges by looping through edges
-     * @param numVertices
-     * @param edges
-     * @return adjList
+     * @param numVertices the total number of vertices in the graph
+     * @param edges the list of edges, each represented as an array of 2 integers
+     * @return adjacency list representation of the graph
      */
     public static List<List<Integer>> createAdjList(int numVertices, List<int[]> edges)
     {
@@ -148,10 +148,10 @@ public class Prog1
     /**
      * Method: DFS
      * Purpose: perform depth-first search on each unvisited neighbor of the vertex in the adjList
-     * @param vertex
-     * @param adjList
-     * @param visited
-     * @param component
+     * @param vertex the starting vertex for the DFS traversal, or the current vertex during recursion
+     * @param adjList the adjacency list representation of the graph
+     * @param visited an array to keep track of which vertices have been visited
+     * @param component a list to store all the vertices of one connected component
      */
     public static void DFS(int vertex, List<List<Integer>> adjList, boolean[] visited, List<Integer> component)
     {
