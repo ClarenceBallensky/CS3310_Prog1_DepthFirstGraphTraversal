@@ -6,9 +6,7 @@
  */
 
 
-
 import java.io.*;
-import java.util.Stack;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +28,8 @@ public class Prog1
         File file = new File(args[0]);
 
         int graphCount = 0; //number of graphs in the input file (number of lines in the input file)
+        int componentCount;
+        List<List<Integer>> components;
 
         //read the contents of the file
         try (Scanner sc = new Scanner(file)){
@@ -39,7 +39,7 @@ public class Prog1
                 graphCount++; //for each additional line in the file, increment graphCount by 1
 
                 GraphInput gi = parseLine(line);
-                createAdjList(gi.numVertices, gi.edges);
+                List<List<Integer>> adjList = createAdjList(gi.numVertices, gi.edges);
 
                 //boolean array to keep track of whether or not a vertex has been visited
                 boolean[] visited = new boolean[gi.numVertices];
@@ -51,7 +51,28 @@ public class Prog1
 
                 System.out.println("Graph" + graphCount + ":");
 
-                
+                componentCount = 0;
+                components = new ArrayList<>();
+
+                for (int vertex = 1; vertex < gi.numVertices; vertex++)
+                {
+                    if (!visited[vertex])
+                    {
+                        List<Integer> component = new ArrayList<>();
+                        DFS(vertex, adjList, visited, component);
+                        componentCount++;
+                        components.add(component);
+                    }
+                }
+
+                System.out.print(componentCount + " connected component(s):");
+                for (int component = 0; component < componentCount; component++)
+                {
+                    System.out.print("{" + components.get(component).get(0) + "} ");
+                }
+
+                graphCount++;
+
             }
 
             sc.close();
@@ -124,4 +145,26 @@ public class Prog1
         return adjList;
     }
 
+    /**
+     * Method: DFS
+     * Purpose: perform depth-first search on each unvisited neighbor of the vertex in the adjList
+     * @param vertex
+     * @param adjList
+     * @param visited
+     * @param component
+     */
+    public static void DFS(int vertex, List<List<Integer>> adjList, boolean[] visited, List<Integer> component)
+    {
+        visited[vertex] = true;
+        component.add(vertex);
+        for (int neighbor : adjList.get(vertex))
+        {
+            //perform DFS for each unvisited neighbor
+            if (!visited[neighbor])
+            {
+                DFS(neighbor, adjList, visited, component);
+            }
+        }
+
+    }
 }
