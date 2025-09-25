@@ -42,19 +42,15 @@ public class Prog1
                 List<List<Integer>> adjList = createAdjList(gi.numVertices, gi.edges);
 
                 //boolean array to keep track of whether or not a vertex has been visited
-                boolean[] visited = new boolean[gi.numVertices];
-                //initialize all values of visited to false --> no vertices have been visited
-                for (int i = 0; i < gi.numVertices; i++)
-                {
-                    visited[i] = false;
-                }
+                //all values initialized to false by default
+                boolean[] visited = new boolean[gi.numVertices + 1];
 
                 System.out.println("Graph" + graphCount + ":");
 
                 componentCount = 0;
                 components = new ArrayList<>();
 
-                for (int vertex = 1; vertex < gi.numVertices; vertex++)
+                for (int vertex = 1; vertex <= gi.numVertices; vertex++)
                 {
                     if (!visited[vertex])
                     {
@@ -66,12 +62,19 @@ public class Prog1
                 }
 
                 System.out.print(componentCount + " connected component(s):");
-                for (int component = 0; component < componentCount; component++)
+                for (List<Integer> comp : components)
                 {
-                    System.out.print("{" + components.get(component).get(0) + "} ");
+                    System.out.print("{");
+                    for (int i = 0; i < comp.size(); i++)
+                    {
+                        System.out.print(comp.get(i));
+                        if (i < comp.size() - 1) //if more elements remain
+                        {
+                            System.out.print(",");
+                        }
+                    }
+                    System.out.println("} ");
                 }
-
-                graphCount++;
 
             }
 
