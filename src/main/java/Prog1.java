@@ -18,28 +18,28 @@ public class Prog1
     public static void main(String[] args)
     {
 
-        //make sure that the filename is the only command line argument
+        //makes sure that the filename is the only command line argument
         if (args.length != 1)
         {
             throw new IllegalArgumentException("Please ONLY provide a file name as a command line argument.");
         }
 
-        //opens up the file specified in the command line
-        File file = new File(args[0]);
+
+        File file = new File(args[0]); //opens up the file specified in the command line
 
         int graphCount = 0; //number of graphs in the input file (number of lines in the input file)
-        int componentCount;
-        List<List<Integer>> components;
+        int componentCount; //total number of connected components
+        List<List<Integer>> components; //list containing each connected component
 
         //read the contents of the file
         try (Scanner sc = new Scanner(file)){
             while (sc.hasNextLine())
             {
-                String line = sc.nextLine();
+                String line = sc.nextLine(); //stores one line (graph) from the input file
                 graphCount++; //for each additional line in the file, increment graphCount by 1
 
-                GraphInput gi = parseLine(line);
-                List<List<Integer>> adjList = createAdjList(gi.numVertices, gi.edges);
+                GraphInput gi = parseLine(line); //parse the input line into a GraphInput object
+                List<List<Integer>> adjList = createAdjList(gi.numVertices, gi.edges); //creates an adjacency list of vertices
 
                 //boolean array to keep track of whether or not a vertex has been visited
                 //all values initialized to false by default
@@ -54,13 +54,14 @@ public class Prog1
                 {
                     if (!visited[vertex])
                     {
-                        List<Integer> component = new ArrayList<>();
+                        List<Integer> component = new ArrayList<>(); //creates an empty list to store the vertices of one connected component
                         DFS(vertex, adjList, visited, component);
                         componentCount++;
                         components.add(component);
                     }
                 }
 
+                //print the number of components and the vertices in each connected component
                 System.out.print(componentCount + " connected component(s): ");
                 for (List<Integer> comp : components)
                 {
@@ -89,10 +90,10 @@ public class Prog1
 
     /**
      * Method: parseLine
-     * Purpose: For each line in the user-provided file, remove extra characters like spaces, parentheses, and commas to store the number of vertices
-     *          in numVertices and each edge pair in edges
+     * Purpose: For each line in the user-provided file, remove extra characters like spaces, parentheses, and commas
+     *          Store the number of vertices in numVertices and each edge pair in edges
      * @param line the current line of text from the input file
-     * @return GraphInput containing numVertices and edges
+     * @return GraphInput object containing numVertices and edges
      */
     public static GraphInput parseLine(String line)
     {
@@ -120,7 +121,7 @@ public class Prog1
      * Purpose: create an adjacency list for every vertex in edges by looping through edges
      * @param numVertices the total number of vertices in the graph
      * @param edges the list of edges, each represented as an array of 2 integers
-     * @return adjacency list representation of the graph
+     * @return adjacency list representation of the current graph
      */
     public static List<List<Integer>> createAdjList(int numVertices, List<int[]> edges)
     {
@@ -149,11 +150,11 @@ public class Prog1
 
     /**
      * Method: DFS
-     * Purpose: perform depth-first search on each unvisited neighbor of the vertex in the adjList
+     * Purpose: perform a depth-first search on each unvisited neighbor of the vertex in the adjacency list
      * @param vertex the starting vertex for the DFS traversal, or the current vertex during recursion
      * @param adjList the adjacency list representation of the graph
      * @param visited an array to keep track of which vertices have been visited
-     * @param component a list to store all the vertices of one connected component
+     * @param component a list to store all of the vertices of one connected component
      */
     public static void DFS(int vertex, List<List<Integer>> adjList, boolean[] visited, List<Integer> component)
     {
