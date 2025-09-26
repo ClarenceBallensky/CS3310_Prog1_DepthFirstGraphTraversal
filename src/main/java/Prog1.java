@@ -61,7 +61,7 @@ public class Prog1
                     }
                 }
 
-                System.out.print(componentCount + " connected component(s):");
+                System.out.print(componentCount + " connected component(s): ");
                 for (List<Integer> comp : components)
                 {
                     System.out.print("{");
@@ -73,13 +73,12 @@ public class Prog1
                             System.out.print(",");
                         }
                     }
-                    System.out.println("} ");
+                    System.out.print("} ");
                 }
 
+                System.out.println("\n");
+
             }
-
-            sc.close();
-
         }
         catch (FileNotFoundException e)
         {
